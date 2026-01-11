@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Celebration</title>
+
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --bg-image: url("b.png");  
+      --accent: #c97b84;
+    }
+  </style>
+</head>
+
+<body>
+
+  <audio id="bgMusic" src="song.mp3" preload="auto"></audio>
+
+  
+  <button class="music-button" id="musicBtn">
+    <span class="music-icon">♪</span>
+    Play Your Favorite Song
+  </button>
+
+  
+  <button class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+ 
+  <div class="nav-menu" id="navMenu">
+    <a href="/memories.html">Memories</a>
+    <a href="/message.html">Messages</a>
+    <a href="/music.html">Music</a>
+    <a href="/quiz.html">Quiz</a>
+    <a href="/surprise.html">Surprise</a>
+  </div>
+
+  
+  <div class="container">
+    <h1 class="message">Today the world celebrates you.</h1>
+    <p class="subtitle">Time Since You Were Born</p>
+
+    <div class="time-container">
+      <div class="time-box">
+        <div class="time-number" id="days">0</div>
+        <div class="time-label">Days</div>
+      </div>
+      <div class="time-box">
+        <div class="time-number" id="hours">0</div>
+        <div class="time-label">Hours</div>
+      </div>
+      <div class="time-box">
+        <div class="time-number" id="minutes">0</div>
+        <div class="time-label">Minutes</div>
+      </div>
+      <div class="time-box">
+        <div class="time-number" id="seconds">0</div>
+        <div class="time-label">Seconds</div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    
+    const birthDate = new Date("2002-02-03T00:00:00");
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - birthDate;
+
+      document.getElementById("days").textContent =
+        Math.floor(diff / (1000*60*60*24)).toLocaleString();
+
+      document.getElementById("hours").textContent =
+        Math.floor(diff / (1000*60*60)).toLocaleString();
+
+      document.getElementById("minutes").textContent =
+        Math.floor(diff / (1000*60)).toLocaleString();
+
+      document.getElementById("seconds").textContent =
+        Math.floor(diff / 1000).toLocaleString();
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+
+    const music = document.getElementById("bgMusic");
+    const btn = document.getElementById("musicBtn");
+    let playing = false;
+
+    btn.addEventListener("click", () => {
+      if (!playing) {
+        music.play();
+        btn.innerHTML = '<span class="music-icon">❚❚</span> Pause Music';
+      } else {
+        music.pause();
+        btn.innerHTML = '<span class="music-icon">♪</span> Play Her Favorite Song';
+      }
+      playing = !playing;
+    });
+
+    const hamburger = document.getElementById("hamburger");
+    const navMenu = document.getElementById("navMenu");
+
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navMenu.classList.toggle("active");
+    });
+
+   
+    document.querySelectorAll(".nav-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+      });
+    });
+
+
+    document.addEventListener("click", (e) => {
+      if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Words for You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f4ece6;
+      --accent:#c97b84;
+      --text:#6b5b53;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:"Poppins",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+
+  
+    .nav-wrapper{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:20px 30px;
+      position:relative;
+      z-index:1000;
+      background:var(--bg);
+    }
+
+    .logo{
+      font-size:22px;
+    }
+
+    .hamburger{
+      display:none;
+      font-size:26px;
+      cursor:pointer;
+      color:#8a7b74;
+    }
+
+
+    .top-nav{
+      display:flex;
+      gap:25px;
+      font-weight:600;
+    }
+
+    .top-nav a{
+      text-decoration:none;
+      color:#8a7b74;
+      font-size:15px;
+      padding:6px 12px;
+      border-radius:6px;
+      transition:.3s;
+    }
+
+    .top-nav a:hover{
+      background:rgba(201,123,132,.15);
+      color:#c97b84;
+    }
+
+ 
+    @media (max-width:768px){
+      .hamburger{
+        display:block;
+      }
+
+      .top-nav{
+        position:absolute;
+        top:65px;   
+        right:30px;
+        background:#fff;
+        flex-direction:column;
+        gap:12px;
+        padding:15px 18px;
+        border-radius:12px;
+        box-shadow:0 10px 25px rgba(0,0,0,.15);
+        display:none;
+        min-width:160px;
+      }
+
+      .top-nav.show{
+        display:flex;
+      }
+
+      .top-nav a{
+        color:#6b5b53;
+        text-align:center;
+      }
+    }
+
+   
+    .wrapper{
+      max-width:900px;
+      margin:auto;
+      padding:40px 20px 80px;  
+      text-align:center;
+    }
+
+    h1{
+      font-family:"Playfair Display",serif;
+      font-size:44px;
+      margin:10px 0 30px;
+      color:#7a6760;
+    }
+
+    .heart{
+      color:var(--accent);
+      font-size:20px;
+      margin-bottom:30px;
+      display:block;
+    }
+
+
+    .letter{
+      background:#fff;
+      max-width:700px;
+      margin:0 auto;
+      padding:40px 35px;
+      border-radius:12px;
+      box-shadow:0 10px 25px rgba(0,0,0,.08);
+      font-family:"Dancing Script",cursive;
+      font-size:22px;
+      line-height:1.7;
+      text-align:left;
+      position:relative;
+    }
+
+    .letter::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        to bottom,
+        rgba(255,255,255,.9),
+        rgba(255,255,255,.95)
+      );
+      border-radius:12px;
+      pointer-events:none;
+    }
+
+    .letter-content{
+      position:relative;
+      z-index:2;
+      white-space:pre-line;
+      min-height:260px;
+    }
+
+    .signature{
+      margin-top:30px;
+      text-align:right;
+      font-size:20px;
+    }
+
+   
+    .cursor{
+      display:inline-block;
+      width:2px;
+      height:22px;
+      background:var(--accent);
+      margin-left:3px;
+      animation:blink 1s infinite;
+      vertical-align:middle;
+    }
+
+    @keyframes blink{
+      0%,50%{opacity:1;}
+      51%,100%{opacity:0;}
+    }
+
+   
+    @media(max-width:600px){
+      h1{font-size:30px;}
+      .letter{
+        padding:28px 22px;
+        font-size:19px;
+      }
+    }
+
+
+.next-btn-wrap{
+  margin-top:60px;
+  text-align:center;
+}
+
+.next-btn{
+  display:inline-block;
+  padding:14px 40px;
+  background:#c97b84;
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:16px;
+  border-radius:50px;
+  box-shadow:0 8px 18px rgba(0,0,0,.15);
+  transition:.3s ease;
+}
+
+.next-btn:hover{
+  background:#b56f76;
+  transform:translateY(-2px);
+  box-shadow:0 12px 25px rgba(0,0,0,.2);
+}
+
+
+@media (max-width: 768px) {
+  .top-nav {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 15px;
+  }
+
+  .top-nav a {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .top-nav a {
+    width: 100%;
+    text-align: center;
+    background: rgba(201,123,132,.1);
+    border-radius: 8px;
+  }
+}
+
+
+.nav-wrapper{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 30px;
+}
+
+.logo{
+  font-size:22px;
+}
+
+.hamburger{
+  display:none;
+  font-size:26px;
+  cursor:pointer;
+  color:#8a7b74;
+}
+
+
+.top-nav{
+  display:flex;
+  gap:25px;
+  font-weight:600;
+}
+
+
+@media (max-width:768px){
+  .hamburger{
+    display:block;
+  }
+
+  .top-nav{
+    position:absolute;
+    top:70px;
+    right:20px;
+    background:#fff;
+    flex-direction:column;
+    gap:12px;
+    padding:15px 18px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    display:none;
+  }
+
+  .top-nav.show{
+    display:flex;
+  }
+
+  .top-nav a{
+    color:#6b5b53;
+    text-align:center;
+  }
+}
+  </style>
+</head>
+
+<body>
+
+
+  
+  <div class="nav-wrapper">
+  <div class="logo">📩</div>
+
+  <div class="hamburger" id="hamburger">
+    ☰
+  </div>
+
+  <div class="top-nav" id="navMenu">
+    <a href="index.html">Home</a>
+  </div>
+</div>
+
+
+  <div class="wrapper">
+    <h1>Words for You</h1>
+    <span class="heart">♡</span>
+
+    <div class="letter">
+      <div id="text" class="letter-content"></div>
+      <span id="cursor" class="cursor"></span>
+
+      <div class="signature">
+        — Forever yours
+      </div>
+    </div>
+       
+<div class="next-btn-wrap">
+  <a href="/music.html" class="next-btn">Because your story deserves another page →</a>
+</div>
+ </div>
+  <div class="next-btn-wrap">
+  <a href="/memories.html" class="next-btn"><--Back to memories</a>
+</div>
+  </div>
+
+ 
+  <script>
+    const message = `
+My Love,
+
+Every moment with you has been a treasure,
+a memory carved into my heart.
+
+You bring so much warmth and joy into my life,
+and my love for you grows each day
+we’re together.
+
+Thank you for being you.
+I’m so blessed to share this journey with you,
+and I can’t wait for all the beautiful moments
+still to come.
+
+I love you more than words can ever express.
+`;
+
+    const textEl = document.getElementById("text");
+    const cursor = document.getElementById("cursor");
+
+    let index = 0;
+
+    function typeWriter(){
+      if(index < message.length){
+        textEl.textContent += message.charAt(index);
+        index++;
+        setTimeout(typeWriter, 40);
+      }else{
+        cursor.style.display = "none";
+      }
+    }
+    typeWriter();
+
+    
+    const hamburger = document.getElementById("hamburger");
+    const navMenu = document.getElementById("navMenu");
+
+    hamburger.addEventListener("click", () => {
+      navMenu.classList.toggle("show");
+    });
+  </script>
+
+</body>
+</html>

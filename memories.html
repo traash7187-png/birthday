@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Moments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f4ece6;
+      --accent:#c97b84;
+      --text:#6b5b53;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:"Poppins",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+
+ 
+    .top-nav{
+      display:flex;
+      justify-content:flex-end;
+      gap:25px;
+      padding:25px 40px;
+      font-weight:600;
+    }
+
+    .top-nav a{
+      text-decoration:none;
+      color:#8a7b74;
+    }
+
+
+    .wrapper{
+      max-width:1100px;
+      margin:auto;
+      padding:0 20px 80px;
+    }
+
+    h1{
+      font-family:"Playfair Display",serif;
+      text-align:center;
+      font-size:46px;
+      margin:10px 0 60px;
+      color:#7a6760;
+    }
+
+   
+    .timeline{
+      position:relative;
+      padding-left:40px;
+    }
+
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:14px;
+      top:0;
+      bottom:0;
+      width:2px;
+      background:#e3cfc7;
+    }
+
+    .year-block{
+      margin-bottom:60px;
+      position:relative;
+    }
+
+    .year-title{
+      font-size:20px;
+      font-weight:600;
+      margin-bottom:18px;
+      position:relative;
+      padding-left:30px;
+    }
+
+    .year-title::before{
+      content:"";
+      position:absolute;
+      left:-32px;
+      top:8px;
+      width:12px;
+      height:12px;
+      background:var(--accent);
+      border-radius:50%;
+    }
+
+    .caption{
+      font-size:14px;
+      margin:8px 0 18px 0;
+      color:#7a6a63;
+    }
+
+    
+    .photo-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .photo-grid.large{
+      grid-template-columns:1fr 2fr;
+    }
+
+    .photo{
+      background:#f4ece6;
+      padding:6px;
+      border-radius:10px;
+      box-shadow:0 6px 14px rgba(0,0,0,.08);
+      transition:.3s;
+    }
+
+    .photo:hover{
+      transform:translateY(-4px);
+    }
+
+    .photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:8px;
+      display:block;
+    }
+
+    .big-photo{
+      grid-row:span 2;
+    }
+
+    
+    @media(max-width:900px){
+      .photo-grid{grid-template-columns:repeat(2,1fr);}
+      .photo-grid.large{grid-template-columns:1fr;}
+      h1{font-size:36px;}
+    }
+
+    @media(max-width:500px){
+      .photo-grid{grid-template-columns:1fr;}
+      .top-nav{justify-content:center;}
+      h1{font-size:28px;}
+    }
+
+    @media (max-width: 768px) {
+  .top-nav {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 15px;
+  }
+
+  .top-nav a {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .top-nav a {
+    width: 100%;
+    text-align: center;
+    background: rgba(201,123,132,.1);
+    border-radius: 8px;
+  }
+}
+
+   
+
+.nav-wrapper{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 30px;
+}
+
+.logo{
+  font-size:22px;
+}
+
+.hamburger{
+  display:none;
+  font-size:26px;
+  cursor:pointer;
+  color:#8a7b74;
+}
+
+
+.top-nav{
+  display:flex;
+  gap:25px;
+  font-weight:600;
+}
+
+
+@media (max-width:768px){
+  .hamburger{
+    display:block;
+  }
+
+  .top-nav{
+    position:absolute;
+    top:70px;
+    right:20px;
+    background:#fff;
+    flex-direction:column;
+    gap:12px;
+    padding:15px 18px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    display:none;
+  }
+
+  .top-nav.show{
+    display:flex;
+  }
+
+  .top-nav a{
+    color:#6b5b53;
+    text-align:center;
+  }
+}
+
+
+.next-btn-wrap{
+  margin-top:60px;
+  text-align:center;
+}
+
+.next-btn{
+  display:inline-block;
+  padding:14px 40px;
+  background:#c97b84;
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:16px;
+  border-radius:50px;
+  box-shadow:0 8px 18px rgba(0,0,0,.15);
+  transition:.3s ease;
+}
+
+.next-btn:hover{
+  background:#b56f76;
+  transform:translateY(-2px);
+  box-shadow:0 12px 25px rgba(0,0,0,.2);
+}
+
+  </style>
+</head>
+
+<body>
+
+<div class="nav-wrapper">
+  <div class="logo">🎥🎞️</div>
+
+  <div class="hamburger" id="hamburger">
+    ☰
+  </div>
+
+  <div class="top-nav" id="navMenu">
+    <a href="index.html">Home</a>
+  
+  </div>
+</div>
+
+  <div class="wrapper">
+    <h1>Moments</h1>
+
+    <div class="timeline">
+
+      
+      <div class="year-block">
+        <div class="year-title">2024 – First memory</div>
+
+        <div class="photo-grid">
+          <div class="photo"><img src="m1.png" alt=""></div>
+          <div class="photo"><img src="m2.jpg" alt="" style="height: 350px;"></div>
+          <div class="photo"><img src="m3.jpg" alt=""></div>
+        </div>
+
+        <div class="caption">That day you laughed the most.</div>
+      </div>
+
+      
+      <div class="year-block">
+        <div class="year-title">2025 – Best trip</div>
+
+        <div class="photo-grid">
+          <div class="photo"><img src="m4.jpg" alt=""></div>
+          <div class="photo"><img src="m5.jpeg" alt=""></div>
+          <div class="photo"><img src="m6.jpg" alt=""></div>
+        </div>
+
+        <div class="caption">Your First Trip to Rajasthan & Gujarat.</div>
+      </div>
+
+     
+      <div class="year-block">
+        <div class="year-title">Unforgettable moment</div>
+
+     
+        <div class="photo-grid large">
+          <div class="photo">
+            <img src="m7.jpg" alt="">
+          </div>
+
+          <div class="photo big-photo">
+            <img src="m8.jpeg" alt="">
+          </div>
+        </div>
+
+        
+
+    
+        <div class="photo-grid" style="margin-top:25px;">
+          <div class="photo"><img src="m9.jpg" alt=""></div>
+          <div class="photo"><img src="m10.jpg" alt=""></div>
+          <div class="photo"><img src="m11.jpg" alt=""></div>
+        </div>
+
+        
+
+       
+        <div class="photo-grid large" style="margin-top:25px;">
+          <div class="photo big-photo">
+            <img src="m12.jpeg" alt="">
+          </div>
+
+          <div class="photo">
+            <img src="m13.jpg" alt="">
+          </div>
+        </div>
+
+        <div class="caption">A moment You’ll remember forever.</div>
+      </div>
+
+    </div>
+   
+<div class="next-btn-wrap">
+  <a href="/message.html" class="next-btn">Ready for the next surprise? →</a>
+</div>
+
+  </div>
+  <div class="next-btn-wrap">
+  <a href="/index.html" class="next-btn"><--Back to Home</a>
+</div>
+
+  </div>
+<script>
+    
+  const hamburger = document.getElementById("hamburger");
+  const navMenu = document.getElementById("navMenu");
+
+  hamburger.addEventListener("click", () => {
+    navMenu.classList.toggle("show");
+  });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Songs That Feel Like You</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f4ece6;
+  --accent:#c97b84;
+  --text:#6b5b53;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:"Poppins",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+
+.top-nav{
+  display:flex;
+  justify-content:flex-end;
+  gap:25px;
+  padding:25px 40px;
+  font-weight:600;
+}
+.top-nav a{
+  text-decoration:none;
+  color:#8a7b74;
+  padding:6px 12px;
+  border-radius:6px;
+}
+.top-nav a:hover{
+  background:rgba(201,123,132,.15);
+  color:#c97b84;
+}
+
+
+.wrapper{max-width:900px;margin:auto;padding:20px 20px 80px;}
+h1{
+  font-family:"Playfair Display",serif;
+  text-align:center;
+  font-size:44px;
+  margin:10px 0 40px;
+  color:#7a6760;
+}
+
+
+.main-player{
+  background:linear-gradient(135deg,#cfa5a9,#b67b81);
+  color:#fff;
+  border-radius:18px;
+  padding:22px;
+  display:flex;
+  gap:18px;
+  align-items:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  margin-bottom:40px;
+}
+.cover{
+  width:90px;height:90px;border-radius:12px;overflow:hidden;
+}
+.cover img{width:100%;height:100%;object-fit:cover;}
+
+.player-info{flex:1;}
+.player-info h3{font-size:20px;margin-bottom:4px;}
+.player-info span{font-size:13px;opacity:.9;}
+
+.controls{
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+.play-btn{
+  background:#fff;color:#c97b84;border:none;
+  width:45px;height:45px;border-radius:50%;
+  font-size:18px;cursor:pointer;
+}
+.progress{flex:1;height:6px;background:rgba(255,255,255,.4);border-radius:10px;overflow:hidden;}
+.progress span{display:block;height:100%;width:0;background:#fff;}
+
+.equalizer{display:flex;gap:3px;margin-left:10px;}
+.bar{
+  width:4px;height:16px;background:#fff;
+  animation:beat 1s infinite ease-in-out;
+}
+.bar:nth-child(2){animation-delay:.2s}
+.bar:nth-child(3){animation-delay:.4s}
+.bar:nth-child(4){animation-delay:.6s}
+
+.paused .bar{animation-play-state:paused;opacity:.4;}
+
+@keyframes beat{
+  0%,100%{height:6px}
+  50%{height:18px}
+}
+
+
+h2{font-size:18px;margin-bottom:15px;color:#7a6760;}
+.playlist{display:flex;flex-direction:column;gap:15px;}
+
+.track{
+  background:#fff;border-radius:14px;
+  padding:12px 16px;
+  display:flex;align-items:center;gap:14px;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+  cursor:pointer;
+}
+.track img{width:50px;height:50px;border-radius:10px;object-fit:cover;}
+.track-info{flex:1;}
+.track-info h4{font-size:15px;}
+.track-info span{font-size:12px;opacity:.7;}
+
+.track button{
+  background:#c97b84;border:none;color:#fff;
+  width:36px;height:36px;border-radius:50%;
+  cursor:pointer;font-size:14px;
+}
+
+
+@media(max-width:600px){
+  h1{font-size:30px}
+  .main-player{flex-direction:column;text-align:center}
+  .controls{justify-content:center}
+}
+
+
+@media (max-width: 768px) {
+  .top-nav {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 15px;
+  }
+
+  .top-nav a {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .top-nav a {
+    width: 100%;
+    text-align: center;
+    background: rgba(201,123,132,.1);
+    border-radius: 8px;
+  }
+}
+
+
+.nav-wrapper{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 30px;
+}
+
+.logo{
+  font-size:22px;
+}
+
+.hamburger{
+  display:none;
+  font-size:26px;
+  cursor:pointer;
+  color:#8a7b74;
+}
+
+
+.top-nav{
+  display:flex;
+  gap:25px;
+  font-weight:600;
+}
+
+
+@media (max-width:768px){
+  .hamburger{
+    display:block;
+  }
+
+  .top-nav{
+    position:absolute;
+    top:70px;
+    right:20px;
+    background:#fff;
+    flex-direction:column;
+    gap:12px;
+    padding:15px 18px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    display:none;
+  }
+
+  .top-nav.show{
+    display:flex;
+  }
+
+  .top-nav a{
+    color:#6b5b53;
+    text-align:center;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<div class="nav-wrapper">
+  <div class="logo">🎵</div>
+
+  <div class="hamburger" id="hamburger">
+    ☰
+  </div>
+
+  <div class="top-nav" id="navMenu">
+    <a href="index.html">Home</a>
+    
+  </div>
+</div>
+
+
+<div class="wrapper">
+<h1>Songs That Feel Like You</h1>
+
+
+<div class="main-player paused" id="mainPlayer">
+  <div class="cover">
+    <img id="mainCover" src="cover1.jpg">
+  </div>
+
+  <div class="player-info">
+    <h3 id="mainTitle">Her Favorite Song</h3>
+    <span id="mainArtist">Now Playing</span>
+
+    <div class="controls">
+      <button class="play-btn" id="playBtn">▶</button>
+      <div class="progress"><span id="progressBar"></span></div>
+
+      <div class="equalizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<h2>Songs that remind me of you</h2>
+
+<div class="playlist">
+
+  <div class="track" data-src="song.mp3" data-title="Tum Se Hi" data-artist="Mohit Chauhan" data-cover="cover1.jpg">
+    <img src="cover1.jpg">
+    <div class="track-info">
+      <h4>Tum Se Hi</h4>
+      <span>Mohit Chauhan</span>
+    </div>
+    <button>▶</button>
+  </div>
+
+  <div class="track" data-src="song1.mp3" data-title="Dooron Dooron" data-artist="Paresh Pahuja" data-cover="cover2.jpg">
+    <img src="cover2.jpg">
+    <div class="track-info">
+      <h4>Dooron Dooron</h4>
+      <span>Paresh Pahuja</span>
+    </div>
+    <button>▶</button>
+  </div>
+
+  <div class="track" data-src="song2.mp3" data-title="Baarishein" data-artist="Anuv Jain" data-cover="cover3.jpg">
+    <img src="cover3.jpg">
+    <div class="track-info">
+      <h4>Baarishein</h4>
+      <span>Anuv Jain</span>
+    </div>
+    <button>▶</button>
+  </div>
+
+  <div class="track" data-src="song3.mp3" data-title="Kabhi Kabhi Aditi" data-artist="AR Rahman" data-cover="cover4.jpg">
+    <img src="cover4.jpg">
+    <div class="track-info">
+      <h4>Kabhi Kabhi Aditi</h4>
+      <span>AR Rahman</span>
+    </div>
+    <button>▶</button>
+  </div>
+
+</div>
+</div>
+
+
+<audio id="audio" src="/song.mp3"></audio>
+
+
+<script>
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const mainPlayer = document.getElementById("mainPlayer");
+const progress = document.getElementById("progressBar");
+
+const mainCover = document.getElementById("mainCover");
+const mainTitle = document.getElementById("mainTitle");
+const mainArtist = document.getElementById("mainArtist");
+
+let isPlaying = false;
+
+
+playBtn.addEventListener("click", () => {
+  if(isPlaying){
+    audio.pause();
+    playBtn.textContent = "▶";
+    mainPlayer.classList.add("paused");
+  }else{
+    audio.play();
+    playBtn.textContent = "❚❚";
+    mainPlayer.classList.remove("paused");
+  }
+  isPlaying = !isPlaying;
+});
+
+
+document.querySelectorAll(".track").forEach(track=>{
+  track.addEventListener("click",()=>{
+    const src = track.dataset.src;
+    const title = track.dataset.title;
+    const artist = track.dataset.artist;
+    const cover = track.dataset.cover;
+
+    audio.src = src;
+    audio.play();
+
+    mainCover.src = cover;
+    mainTitle.textContent = title;
+    mainArtist.textContent = artist;
+
+    playBtn.textContent = "❚❚";
+    mainPlayer.classList.remove("paused");
+    isPlaying = true;
+  });
+});
+
+
+audio.addEventListener("timeupdate",()=>{
+  if(!audio.duration) return;
+  const percent = (audio.currentTime / audio.duration) * 100;
+  progress.style.width = percent + "%";
+});
+
+
+audio.addEventListener("ended",()=>{
+  playBtn.textContent = "▶";
+  mainPlayer.classList.add("paused");
+  isPlaying = false;
+});
+
+  const hamburger = document.getElementById("hamburger");
+  const navMenu = document.getElementById("navMenu");
+
+  hamburger.addEventListener("click", () => {
+    navMenu.classList.toggle("show");
+  });
+
+
+</script>
+
+</body>
+</html>

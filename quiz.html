@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just for Fun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f4ece6;
+  --accent:#c97b84;
+  --text:#6b5b53;
+  --card:#fff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:"Poppins",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* NAVBAR */
+.top-nav{
+  display:flex;
+  justify-content:flex-end;
+  gap:25px;
+  padding:25px 40px;
+  font-weight:600;
+}
+.top-nav a{
+  text-decoration:none;
+  color:#8a7b74;
+  padding:6px 12px;
+  border-radius:6px;
+}
+.top-nav a:hover{
+  background:rgba(201,123,132,.15);
+  color:#c97b84;
+}
+
+/* PAGE */
+.wrapper{
+  max-width:1000px;
+  margin:auto;
+  padding:30px 20px 80px;
+}
+
+h1{
+  font-family:"Playfair Display",serif;
+  text-align:center;
+  font-size:44px;
+  margin-bottom:40px;
+  color:#7a6760;
+}
+
+/* SECTIONS */
+.section{
+  background:var(--card);
+  border-radius:18px;
+  padding:30px 25px;
+  margin-bottom:40px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.section h2{
+  margin-bottom:15px;
+  color:#7a6760;
+}
+
+/* QUIZ */
+.quiz label{
+  display:block;
+  margin:10px 0;
+  cursor:pointer;
+}
+
+.quiz button{
+  margin-top:15px;
+  padding:10px 25px;
+  border:none;
+  border-radius:30px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* MEMORY GAME */
+.game-board{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.card{
+  background:#c97b84;
+  border-radius:10px;
+  height:80px;
+  cursor:pointer;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:.4s;
+}
+
+.card.flipped{
+  transform:rotateY(180deg);
+}
+
+.card-front, .card-back{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  backface-visibility:hidden;
+}
+
+.card-front{
+  background:#c97b84;
+  color:#fff;
+  font-size:24px;
+}
+
+.card-back{
+  background:#fff;
+  transform:rotateY(180deg);
+  font-size:20px;
+}
+
+/* COMPLIMENT */
+.compliment-box{
+  text-align:center;
+}
+
+.compliment{
+  margin-top:15px;
+  font-size:20px;
+  color:#c97b84;
+  min-height:40px;
+}
+
+.compliment-box button{
+  padding:12px 30px;
+  background:#c97b84;
+  color:#fff;
+  border:none;
+  border-radius:30px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .game-board{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:480px){
+  .game-board{grid-template-columns:repeat(2,1fr);}
+  h1{font-size:30px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-nav">
+  <a href="index.html">Home</a>
+  <a href="memories.html">Memories</a>
+  <a href="messages.html">Messages</a>
+  <a href="music.html">Music</a>
+  <a href="fun.html">Fun</a>
+  <a href="surprise.html">Surprise</a>
+</div>
+
+<div class="wrapper">
+<h1>Just for Fun</h1>
+
+<!-- QUIZ -->
+<div class="section quiz">
+  <h2>How well do you know me?</h2>
+
+  <p>What is my favorite way to spend a day?</p>
+  <label><input type="radio" name="q1" value="a"> Watching movies</label>
+  <label><input type="radio" name="q1" value="b"> Going on long walks</label>
+  <label><input type="radio" name="q1" value="c"> Sleeping all day</label>
+
+  <button onclick="checkQuiz()">Check Answer</button>
+  <p id="quizResult"></p>
+</div>
+
+<!-- MEMORY GAME -->
+<div class="section">
+  <h2>Memory Game</h2>
+  <p>Find the matching hearts 💖</p>
+
+  <div class="game-board" id="gameBoard"></div>
+  <p id="gameStatus"></p>
+</div>
+
+<!-- COMPLIMENT GENERATOR -->
+<div class="section compliment-box">
+  <h2>Fortune of the Day ✨</h2>
+  <button onclick="showCompliment()">Click for a compliment</button>
+  <div class="compliment" id="complimentText"></div>
+</div>
+
+</div>
+
+<script>
+/* ---------- QUIZ ---------- */
+function checkQuiz(){
+  const answer = document.querySelector('input[name="q1"]:checked');
+  const result = document.getElementById("quizResult");
+
+  if(!answer){
+    result.textContent = "Pick an answer first 😊";
+    return;
+  }
+
+  if(answer.value === "b"){
+    result.textContent = "Correct! You know me well 💖";
+  }else{
+    result.textContent = "Haha close! But I still love you 😄";
+  }
+}
+
+/* ---------- MEMORY GAME ---------- */
+const symbols = ["💖","🌸","✨","😊","💖","🌸","✨","😊"];
+let shuffled = symbols.sort(()=>0.5 - Math.random());
+
+const board = document.getElementById("gameBoard");
+let first = null, second = null, lock = false;
+let matched = 0;
+
+shuffled.forEach(sym=>{
+  const card = document.createElement("div");
+  card.className = "card";
+
+  card.innerHTML = `
+    <div class="card-front">?</div>
+    <div class="card-back">${sym}</div>
+  `;
+
+  card.addEventListener("click",()=>{
+    if(lock || card === first || card.classList.contains("flipped")) return;
+
+    card.classList.add("flipped");
+
+    if(!first){
+      first = card;
+    }else{
+      second = card;
+      lock = true;
+
+      if(first.querySelector(".card-back").textContent ===
+         second.querySelector(".card-back").textContent){
+
+        matched += 2;
+        first = second = null;
+        lock = false;
+
+        if(matched === symbols.length){
+          document.getElementById("gameStatus").textContent =
+            "You matched all of them! 🎉";
+        }
+      }else{
+        setTimeout(()=>{
+          first.classList.remove("flipped");
+          second.classList.remove("flipped");
+          first = second = null;
+          lock = false;
+        },800);
+      }
+    }
+  });
+
+  board.appendChild(card);
+});
+
+/* ---------- COMPLIMENT GENERATOR ---------- */
+const compliments = [
+  "You make every place brighter ✨",
+  "Your smile can change any bad day 💖",
+  "You are someone truly special 🌸",
+  "The world feels kinder with you in it 😊",
+  "You are beautiful inside and out 💕",
+  "You bring happiness wherever you go 🌈"
+];
+
+function showCompliment(){
+  const text = compliments[Math.floor(Math.random()*compliments.length)];
+  document.getElementById("complimentText").textContent = text;
+}
+</script>
+
+</body>
+</html>
